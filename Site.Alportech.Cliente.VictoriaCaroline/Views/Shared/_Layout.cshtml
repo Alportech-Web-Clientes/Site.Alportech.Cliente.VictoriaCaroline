@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Alportech.Cliente.VictoriaCaroline</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/img/logo_vq.jpg" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-img">
+                    <img src="/img/logo_vq.jpg" alt="Profile Photo">
+                </div>
+                <h2 class="name">Victória Caroline</h2>
+                <p class="title">
+                    Educadora Ambiental | Bacharela em Gestão Ambiental | Especialista em Gestão de Projetos |
+                    Analista Ambiental
+                </p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/victoria-caroline-de-souza-alves-663814186/" target="_blank"
+                       aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:victoria.csa@alumni.usp.br" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/victoria_vq/" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active" data-target="dashboard"><i class="fas fa-chart-line"></i> Dashboard</li>
+                    <li data-target="projects"><i class="fas fa-leaf"></i> Projetos</li>
+                    <li data-target="accomplishments"><i class="fas fa-award"></i> Conquistas</li>
+                    <li data-target="about"><i class="fas fa-user"></i> Sobre</li>
+                    <li data-target="contact"><i class="fas fa-envelope"></i> Contato</li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© 2025 | Todos os direitos reservados</p>
+            </div>
+        </aside>
+
+        <main class="main-content" role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
