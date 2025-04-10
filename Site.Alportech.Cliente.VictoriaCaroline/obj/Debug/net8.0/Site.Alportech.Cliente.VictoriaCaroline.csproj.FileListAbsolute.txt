@@ -28,3 +28,7 @@ C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.
 C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\Site.Alportech.Cliente.VictoriaCaroline.pdb
 C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\Site.Alportech.Cliente.VictoriaCaroline.genruntimeconfig.cache
 C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\ref\Site.Alportech.Cliente.VictoriaCaroline.dll
+C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\bin\Debug\net8.0\CsvHelper.dll
+C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\Site.Alportech.Cliente.VictoriaCaroline.csproj.AssemblyReference.cache
+C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\Site.Alportech.Cliente.VictoriaCaroline.sourcelink.json
+C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\obj\Debug\net8.0\Site.Alp.03C0076B.Up2Date

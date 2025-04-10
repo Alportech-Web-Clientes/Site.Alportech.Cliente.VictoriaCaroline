@@ -1,0 +1,21 @@
+﻿@model PerfilUsuarioViewModel
+
+<div class="profile">
+    <div class="profile-img">
+        <img src="data:image/jpeg;base64,@Model.Usuario.FotoPerfilBase64" alt="Profile Photo" />
+    </div>
+    <h2 class="name">@Model.Usuario.Nome</h2>
+    <p class="title">@Model.Usuario.TituloOcupacao</p>
+    <div class="social-icons">
+        @foreach (var rede in Model.RedesSociais)
+        {
+            var tipo = rede.TipoRedeSocial!.ToLower();
+            var url = tipo == "envelope" ? $"mailto:{rede.UrlRedeSocial}" : rede.UrlRedeSocial;
+            var prefixoIcone = tipo == "envelope" ? "fas" : "fab"; // ícone sólido para email, brands para o resto
+
+            <a href="@url" target="_blank" aria-label="@rede.NomeRedeSocial">
+                <i class="@prefixoIcone fa-@tipo"></i>
+            </a>
+        }
+    </div>
+</div>

@@ -12,24 +12,7 @@
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="profile">
-                <div class="profile-img">
-                    <img src="/img/logo_vq.jpg" alt="Profile Photo">
-                </div>
-                <h2 class="name">Victória Caroline</h2>
-                <p class="title">
-                    Educadora Ambiental | Bacharela em Gestão Ambiental | Especialista em Gestão de Projetos |
-                    Analista Ambiental
-                </p>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/victoria-caroline-de-souza-alves-663814186/" target="_blank"
-                       aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:victoria.csa@alumni.usp.br" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/victoria_vq/" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
+            @await Component.InvokeAsync("PerfilUsuario")
             <nav class="menu">
                 <ul>
                     <li class="active" data-target="dashboard"><i class="fas fa-chart-line"></i> Dashboard</li>
