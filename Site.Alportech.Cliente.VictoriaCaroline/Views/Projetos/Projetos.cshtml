@@ -3,6 +3,35 @@
     ViewData["Title"] = "Projetos";
 }
 
+@functions {
+    public string FormatarTexto(string texto)
+    {
+        if (string.IsNullOrEmpty(texto)) return string.Empty;
+
+        // Proteção básica contra XSS
+        texto = System.Net.WebUtility.HtmlEncode(texto);
+
+        // Converter quebras de linha
+        texto = texto.Replace("\r\n", "<br>").Replace("\n", "<br>");
+
+        // Converter negritos (**texto**)
+        texto = System.Text.RegularExpressions.Regex.Replace(
+            texto, @"\*\*(.*?)\*\*", "<strong>$1</strong>");
+
+        // Converter itálicos (*texto* ou _texto_)
+        texto = System.Text.RegularExpressions.Regex.Replace(
+            texto, @"\*(.*?)\*", "<em>$1</em>");
+        texto = System.Text.RegularExpressions.Regex.Replace(
+            texto, @"_(.*?)_", "<em>$1</em>");
+
+        // Converter tópicos/listas (linhas que começam com -)
+        texto = System.Text.RegularExpressions.Regex.Replace(
+            texto, @"(<br>|^)- (.*?)(<br>|$)", "$1<li>$2</li>$3");
+
+        return texto;
+    }
+}
+
 <!-- Projects -->
 <section class="content-section">
     <div class="section-header">
@@ -42,7 +71,7 @@
                 </div>
                 <div class="card-content">
                     <h3>@projeto.TituloProjeto</h3>
-                    <p>@projeto.DescricaoProjeto</p>
+                    <div class="card-description">@Html.Raw(FormatarTexto(projeto.DescricaoProjeto!))</div>
                     <div class="card-tags">
                         @foreach (var tag in tagsArray)
                         {
@@ -93,7 +122,6 @@
         // Filtro de projetos por tag
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function () {
-                // Ativar/desativar botão
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
@@ -115,7 +143,6 @@
         const closeModal = document.querySelector('.close-modal');
         const projectCards = document.querySelectorAll('.project-card');
 
-        // Função para formatar texto preservando formatação
         function formatarTexto(texto) {
             if (!texto) return '';
 
@@ -124,21 +151,21 @@
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
 
-            // Permitir algumas tags seguras
-            texto = texto.replace(/&lt;(br|strong|em|u|li|ul|ol|p)&gt;/g, '<$1>');
-
             // Quebras de linha
             texto = texto.replace(/\r?\n/g, '<br>');
 
-            // Tópicos/listas (linhas que começam com -)
+            // Negritos (**texto**)
+            texto = texto.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+            // Itálicos (*texto* ou _texto_)
+            texto = texto.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            texto = texto.replace(/_([^_]+)_/g, '<em>$1</em>');
+
+            // Tópicos/listas
             texto = texto.replace(/(<br>|^)- /g, '$1<li>');
 
-            // Negritos (**texto** ou *texto*)
-            texto = texto.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-            texto = texto.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
-
-            // Itálicos (_texto_)
-            texto = texto.replace(/_([^_]+)_/g, '<em>$1</em>');
+            // Permitir tags seguras
+            texto = texto.replace(/&lt;(br|strong|em|li)&gt;/g, '<$1>');
 
             return texto;
         }
@@ -149,24 +176,14 @@
                 const projetoId = this.getAttribute('data-projeto-id');
                 const projeto = @Html.Raw(Json.Serialize(Model));
 
-                // Encontrar o projeto correspondente
                 const projetoSelecionado = projeto.find(p => p.idProjeto === projetoId);
 
                 if (projetoSelecionado) {
-                    // Preencher modal com os dados do projeto
                     document.getElementById('modalProjectTitle').textContent = projetoSelecionado.tituloProjeto;
+                    document.getElementById('modalProjectDescription').innerHTML = formatarTexto(projetoSelecionado.descricaoProjeto);
+                    document.getElementById('modalProjectObjectives').innerHTML = formatarTexto(projetoSelecionado.objetivosProjeto);
+                    document.getElementById('modalProjectResults').innerHTML = formatarTexto(projetoSelecionado.resultadosProjeto);
 
-                    // Aplicar formatação aos textos
-                    document.getElementById('modalProjectDescription').innerHTML =
-                        formatarTexto(projetoSelecionado.descricaoProjeto);
-
-                    document.getElementById('modalProjectObjectives').innerHTML =
-                        formatarTexto(projetoSelecionado.objetivosProjeto);
-
-                    document.getElementById('modalProjectResults').innerHTML =
-                        formatarTexto(projetoSelecionado.resultadosProjeto);
-
-                    // Imagem
                     const imgElement = document.getElementById('modalProjectImage');
                     if (projetoSelecionado.imagemProjetoBase64) {
                         imgElement.src = `data:image/jpeg;base64,${projetoSelecionado.imagemProjetoBase64}`;
@@ -175,7 +192,6 @@
                     }
                     imgElement.alt = projetoSelecionado.tituloProjeto;
 
-                    // Tags
                     const tagsContainer = document.getElementById('modalProjectTags');
                     tagsContainer.innerHTML = '';
                     if (projetoSelecionado.tagsProjeto) {
@@ -190,20 +206,17 @@
                         });
                     }
 
-                    // Mostrar modal
                     modal.classList.add('show');
                     document.body.style.overflow = 'hidden';
                 }
             });
         });
 
-        // Fechar modal
         closeModal.addEventListener('click', function () {
             modal.classList.remove('show');
             document.body.style.overflow = 'auto';
         });
 
-        // Fechar modal ao clicar fora do conteúdo
         window.addEventListener('click', function (event) {
             if (event.target === modal) {
                 modal.classList.remove('show');

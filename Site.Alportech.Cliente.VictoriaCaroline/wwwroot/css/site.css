@@ -981,6 +981,35 @@ textarea {
         font-weight: 600;
     }
 
+.card-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+    .card-description strong {
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+
+    .card-description em {
+        font-style: italic;
+    }
+
+    .card-description li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        list-style-type: none;
+    }
+
+        .card-description li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
 /* Responsive adjustments for experience section */
 @media (max-width: 768px) {
     .experience-card {
