@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Alportech.Cliente.VictoriaCaroline</title>
+    <title>@ViewData["Title"] | Victória Caroline</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="/img/logo_vq.jpg" type="image/x-icon">
@@ -15,11 +15,21 @@
             @await Component.InvokeAsync("PerfilUsuario")
             <nav class="menu">
                 <ul>
-                    <li class="active" data-target="dashboard"><i class="fas fa-chart-line"></i> Dashboard</li>
-                    <li data-target="projects"><i class="fas fa-leaf"></i> Projetos</li>
-                    <li data-target="accomplishments"><i class="fas fa-award"></i> Conquistas</li>
-                    <li data-target="about"><i class="fas fa-user"></i> Sobre</li>
-                    <li data-target="contact"><i class="fas fa-envelope"></i> Contato</li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Dashboard" ? "active" : "")" data-target="Dashboard">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Projetos" ? "active" : "")" data-target="Projetos">
+                        <i class="fas fa-leaf"></i> Projetos
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Conquistas" ? "active" : "")" data-target="Conquistas">
+                        <i class="fas fa-award"></i> Conquistas
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Sobre" ? "active" : "")" data-target="Sobre">
+                        <i class="fas fa-user"></i> Sobre
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Contato" ? "active" : "")" data-target="Contato">
+                        <i class="fas fa-envelope"></i> Contato
+                    </li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -32,7 +42,25 @@
         </main>
     </div>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuItems = document.querySelectorAll('.menu li[data-target]');
+
+            menuItems.forEach(function (item) {
+                item.style.cursor = 'pointer'; // Aponta que é clicável
+
+                item.addEventListener('click', function () {
+                    const controller = item.getAttribute('data-target');
+                    if (controller) {
+                        // Redireciona para /{Controller}/Index
+                        window.location.href = '/' + controller + '/Index';
+                    }
+                });
+            });
+        });
+    </script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

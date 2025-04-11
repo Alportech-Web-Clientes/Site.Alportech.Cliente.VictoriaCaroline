@@ -18,12 +18,24 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\GIT_REP\Alportech Clientes\Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline\Site.Alportech.Cliente.VictoriaCaroline
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Conquistas/Conquistas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ucXVpc3Rhc1xDb25xdWlzdGFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Contato/Contato.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGF0b1xDb250YXRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Dashboard/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Dashboard/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXFByaXZhY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Projetos/Projetos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0b3NcUHJvamV0b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Shared/Components/PerfilUsuario/Default.cshtml]
@@ -36,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/Sobre/Sobre.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29icmVcU29icmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/GIT_REP/Alportech Clientes/Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Site.Alportech.Cliente.VictoriaCaroline/Views/_ViewImports.cshtml]

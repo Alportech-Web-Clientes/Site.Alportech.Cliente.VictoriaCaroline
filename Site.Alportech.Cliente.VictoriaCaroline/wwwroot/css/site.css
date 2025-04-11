@@ -152,7 +152,6 @@ body {
 }
 
 .content-section {
-    display: none;
     animation: fadeIn 0.5s ease;
 }
 
@@ -812,7 +811,7 @@ textarea {
 .modal {
     display: none;
     position: fixed;
-    z-index: 100;
+    z-index: 99999999;
     left: 0;
     top: 0;
     width: 100%;
@@ -952,6 +951,35 @@ textarea {
         grid-template-columns: 1fr;
     }
 }
+
+.modal-text-content {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+    .modal-text-content br + li {
+        margin-top: 8px;
+    }
+
+    .modal-text-content li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        list-style-type: none;
+    }
+
+        .modal-text-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+    .modal-text-content strong {
+        color: var(--primary-dark);
+        font-weight: 600;
+    }
 
 /* Responsive adjustments for experience section */
 @media (max-width: 768px) {

@@ -1,0 +1,214 @@
+﻿@model List<Site.Alportech.Cliente.VictoriaCaroline.Models.Projeto>
+@{
+    ViewData["Title"] = "Projetos";
+}
+
+<!-- Projects -->
+<section class="content-section">
+    <div class="section-header">
+        <h1>Projetos</h1>
+        <p class="subtitle">Portfólio completo de iniciativas ambientais</p>
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            @foreach (var tag in ViewBag.TagsUnicas)
+            {
+                <button class="filter-btn" data-filter="@tag.ToLower().Replace(" ", "-")">@tag</button>
+            }
+        </div>
+    </div>
+
+    <div class="project-grid full-grid">
+        @foreach (var projeto in Model)
+        {
+            // Processar tags para o data-category (remover espaços e acentos)
+            var tagsArray = projeto.TagsProjeto?.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(t => t.Trim().ToLower().Replace(" ", "-"))
+            .Where(t => !string.IsNullOrEmpty(t)) ?? new string[0];
+            var dataCategory = string.Join(" ", tagsArray);
+
+            <div class="project-card" data-category="@dataCategory" data-projeto-id="@projeto.IdProjeto">
+                <div class="card-image">
+                    @if (!string.IsNullOrEmpty(projeto.ImagemProjetoBase64))
+                    {
+                        <img src="data:image/jpeg;base64,@projeto.ImagemProjetoBase64" alt="@projeto.TituloProjeto">
+                    }
+                    else
+                    {
+                        <img src="/img/banner.jpg" alt="@projeto.TituloProjeto">
+                    }
+                </div>
+                <div class="card-content">
+                    <h3>@projeto.TituloProjeto</h3>
+                    <p>@projeto.DescricaoProjeto</p>
+                    <div class="card-tags">
+                        @foreach (var tag in tagsArray)
+                        {
+                            <span>@tag.Replace("-", " ")</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Modal de Detalhes do Projeto -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <div class="close-modal">&times;</div>
+        <div class="modal-header">
+            <h2 id="modalProjectTitle"></h2>
+        </div>
+        <div class="modal-body">
+            <div class="modal-image">
+                <img id="modalProjectImage" src="" alt="">
+            </div>
+            <div class="modal-details">
+                <div class="modal-info">
+                    <h3>Descrição</h3>
+                    <p id="modalProjectDescription"></p>
+                </div>
+                <div class="modal-info">
+                    <h3>Objetivos</h3>
+                    <p id="modalProjectObjectives"></p>
+                </div>
+                <div class="modal-info">
+                    <h3>Resultados</h3>
+                    <p id="modalProjectResults"></p>
+                </div>
+                <div class="modal-info">
+                    <h3>Tags</h3>
+                    <div class="modal-tags" id="modalProjectTags"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Filtro de projetos por tag
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Ativar/desativar botão
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                const projectCards = document.querySelectorAll('.project-card');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal de detalhes do projeto
+        const modal = document.getElementById('projectModal');
+        const closeModal = document.querySelector('.close-modal');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        // Função para formatar texto preservando formatação
+        function formatarTexto(texto) {
+            if (!texto) return '';
+
+            // Proteção básica contra XSS
+            texto = texto.toString()
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Permitir algumas tags seguras
+            texto = texto.replace(/&lt;(br|strong|em|u|li|ul|ol|p)&gt;/g, '<$1>');
+
+            // Quebras de linha
+            texto = texto.replace(/\r?\n/g, '<br>');
+
+            // Tópicos/listas (linhas que começam com -)
+            texto = texto.replace(/(<br>|^)- /g, '$1<li>');
+
+            // Negritos (**texto** ou *texto*)
+            texto = texto.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            texto = texto.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+            // Itálicos (_texto_)
+            texto = texto.replace(/_([^_]+)_/g, '<em>$1</em>');
+
+            return texto;
+        }
+
+        // Abrir modal ao clicar em um projeto
+        projectCards.forEach(card => {
+            card.addEventListener('click', function () {
+                const projetoId = this.getAttribute('data-projeto-id');
+                const projeto = @Html.Raw(Json.Serialize(Model));
+
+                // Encontrar o projeto correspondente
+                const projetoSelecionado = projeto.find(p => p.idProjeto === projetoId);
+
+                if (projetoSelecionado) {
+                    // Preencher modal com os dados do projeto
+                    document.getElementById('modalProjectTitle').textContent = projetoSelecionado.tituloProjeto;
+
+                    // Aplicar formatação aos textos
+                    document.getElementById('modalProjectDescription').innerHTML =
+                        formatarTexto(projetoSelecionado.descricaoProjeto);
+
+                    document.getElementById('modalProjectObjectives').innerHTML =
+                        formatarTexto(projetoSelecionado.objetivosProjeto);
+
+                    document.getElementById('modalProjectResults').innerHTML =
+                        formatarTexto(projetoSelecionado.resultadosProjeto);
+
+                    // Imagem
+                    const imgElement = document.getElementById('modalProjectImage');
+                    if (projetoSelecionado.imagemProjetoBase64) {
+                        imgElement.src = `data:image/jpeg;base64,${projetoSelecionado.imagemProjetoBase64}`;
+                    } else {
+                        imgElement.src = '/img/banner.jpg';
+                    }
+                    imgElement.alt = projetoSelecionado.tituloProjeto;
+
+                    // Tags
+                    const tagsContainer = document.getElementById('modalProjectTags');
+                    tagsContainer.innerHTML = '';
+                    if (projetoSelecionado.tagsProjeto) {
+                        const tags = projetoSelecionado.tagsProjeto.split(/[,;]/)
+                            .map(tag => tag.trim())
+                            .filter(tag => tag.length > 0);
+
+                        tags.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.textContent = tag;
+                            tagsContainer.appendChild(tagElement);
+                        });
+                    }
+
+                    // Mostrar modal
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Fechar modal
+        closeModal.addEventListener('click', function () {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fechar modal ao clicar fora do conteúdo
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+}

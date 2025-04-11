@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Dashboard -->
+<section id="dashboard" class="content-section active">
+
+    <!-- Stories Section (NEW) -->
+    <div class="stories-container">
+        <div class="stories-wrapper">
+            <div class="story-item" data-story-id="story1">
+                <div class="story-circle">
+                    <img src="/img/stories/1/1.jpg" alt="Carnaval no Parque da Água Branca">
+                </div>
+                <span class="story-label">Conexão</span>
+            </div>
+            <div class="story-item" data-story-id="story2">
+                <div class="story-circle">
+                    <img src="/img/stories/2/1.jpg"
+                         alt="Cores da Natureza: Workshop Ensina Pintura com Tintas Naturais no Parque da Água Branca">
+                </div>
+                <span class="story-label">Cores</span>
+            </div>
+            <div class="story-item" data-story-id="story3">
+                <div class="story-circle">
+                    <img src="/img/stories/3/1.jpg"
+                         alt="Dia Mundial da Educação Ambiental: Reflexões e Propósito na Jornada Profissional">
+                </div>
+                <span class="story-label">Propósito</span>
+            </div>
+            <div class="story-item" data-story-id="story4">
+                <div class="story-circle">
+                    <img src="/img/stories/4/1.jpg"
+                         alt="Conexão com a Natureza: Educação Ambiental e Aprendizado no Parque da Água Branca">
+                </div>
+                <span class="story-label">Experiência</span>
+            </div>
+            <div class="story-item" data-story-id="story5">
+                <div class="story-circle">
+                    <img src="/img/stories/5/1.jpg"
+                         alt="Reflexões e Conquistas: Um Olhar Sobre 2024 e os Aprendizados para 2025">
+                </div>
+                <span class="story-label">Gratidão</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h1>Dashboard</h1>
+        <p class="subtitle">Visão geral de projetos e impactos ambientais</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <i class="fas fa-tree"></i>
+            <h3>8</h3>
+            <p>Projetos Ambientais</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-seedling"></i>
+            <h3>5.000+</h3>
+            <p>Árvores Plantadas</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-tint"></i>
+            <h3>3</h3>
+            <p>Projetos de Recuperação Hídrica</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-recycle"></i>
+            <h3>8</h3>
+            <p>Programas de Reciclagem</p>
+        </div>
+    </div>
+
+    <div class="recent-projects">
+        <div class="section-header">
+            <h2>Projetos Recentes</h2>
+            <button class="view-all" data-target="projects">Ver Todos</button>
+        </div>
+        <div class="project-grid">
+
+            <!-- Programa Adapta Keraciaba: Pesquisa-ação crítica para adaptação climática e redução de desastres -->
+            <div class="project-card" data-category="adapta-keraciaba">
+                <div class="card-image">
+                    <img src="/img/banner.jpg" alt="Programa Adapta Keraciaba">
+                </div>
+                <div class="card-content">
+                    <h3>Programa Adapta Keraciaba</h3>
+                    <p>Pesquisa-ação para adaptação climática e redução de desastres na zona leste de São Paulo.</p>
+                    <div class="card-tags">
+                        <span>Adaptação Climática</span>
+                        <span>Redução de Desastres</span>
+                        <span>Engajamento Comunitário</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programa Adapta Keraciaba: Trilhas de formação e divulgação científica para Adaptação Climática e Redução de Risco de Desastres -->
+            <div class="project-card" data-category="adapta-keraciaba-trilhas">
+                <div class="card-image">
+                    <img src="/img/banner.jpg" alt="Programa Adapta Keraciaba: Trilhas de Formação">
+                </div>
+                <div class="card-content">
+                    <h3>Programa Adapta Keraciaba: Trilhas de Formação</h3>
+                    <p>Divulgação científica e capacitação para adaptação climática e redução de riscos de desastres.</p>
+                    <div class="card-tags">
+                        <span>Adaptação Climática</span>
+                        <span>Redução de Riscos</span>
+                        <span>Educação Ambiental</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programa Adapta Keraciaba: A história das comunidades na gestão de riscos de desastres e adaptação climática -->
+            <div class="project-card" data-category="adapta-keraciaba-historia">
+                <div class="card-image">
+                    <img src="/img/banner.jpg" alt="Programa Adapta Keraciaba: A História das Comunidades">
+                </div>
+                <div class="card-content">
+                    <h3>Adapta Keraciaba: A História das Comunidades</h3>
+                    <p>Resgate e valorização das narrativas comunitárias na gestão de riscos e adaptação climática.</p>
+                    <div class="card-tags">
+                        <span>Gestão de Riscos</span>
+                        <span>Adaptação Climática</span>
+                        <span>Engajamento Comunitário</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="key-accomplishments">
+        <div class="section-header">
+            <h2>Conquistas e Feitos</h2>
+            <button class="view-all" data-target="accomplishments">Ver Todos</button>
+        </div>
+        <div class="accomplishment-timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-certificate"></i></div>
+                <div class="timeline-content">
+                    <h3>Voluntária no Programa Adapta Keraciaba</h3>
+                    <p class="timeline-date">
+                        Concedido(s) por Escola de Artes, Ciências e Humanidades da Universidade de São
+                        Paulo (EACH-USP) · mai de 2023
+                    </p>
+                    <p>
+                        O Projeto Adapta Keraciaba venceu em 1º lugar na premiação dos melhores trabalhos do 30º Simpósio
+                        Internacional de Iniciação Científica e Tecnológica da USP, com o trabalho "Programa Adapta Keraciaba:
+                        gestão de riscos de desastres e adaptação climática", na área de Ciências Ambientais.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-award"></i></div>
+                <div class="timeline-content">
+                    <h3>Bolsista no Programa Adapta Keraciaba</h3>
+                    <p class="timeline-date">
+                        Concedido(s) por Oficina das Nações Unidas para a Redução de Riscos de
+                        Desastres (UNDRR) · out de 2021
+                    </p>
+                    <p>
+                        O Programa Adapta Keraciaba recebeu um certificado de apreciação e reconhecimento como projeto
+                        vencedor na categoria ‘Jovens’ do concurso de vídeos do MCR 2030 "Vozes da Comunidade - Preparando-se
+                        para um Futuro Resiliente nas Américas e no Caribe"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stories Modal -->
+<div id="storiesViewer" class="stories-viewer">
+    <div class="stories-viewer-content">
+        <div class="stories-header">
+            <div class="stories-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="stories-info">
+                <div class="stories-user">
+                    <img src="/img/logo_vq.jpg" alt="Victoria">
+                    <span>Victoria Caroline</span>
+                </div>
+            </div>
+            <button class="close-stories">&times;</button>
+        </div>
+        <div class="stories-content">
+            <!-- Stories will be loaded here dynamically -->
+        </div>
+        <button class="stories-nav stories-prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="stories-nav stories-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>

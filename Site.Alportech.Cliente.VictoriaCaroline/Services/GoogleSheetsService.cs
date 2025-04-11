@@ -1,13 +1,13 @@
 ﻿using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Site.Alportech.Cliente.VictoriaCaroline.Models; // Substitua pelo namespace do seu projeto
+using Site.Alportech.Cliente.VictoriaCaroline.Models;
 
 public class GoogleSheetsService
 {
     private readonly HttpClient _httpClient;
     private readonly string _baseSheetUrl = "https://docs.google.com/spreadsheets/d/1pfvcWvSELjRCuts9Aih_ydKvNsBQDGXG_b4gUNkZe5o/gviz/tq?tqx=out:csv&sheet=";
-    private const string UsuarioIdFixo = "18a2427d-2e93-4cb2-b292-a8517a6a77af";
+    public const string UsuarioIdFixo = "18a2427d-2e93-4cb2-b292-a8517a6a77af";
 
     public GoogleSheetsService(HttpClient httpClient)
     {
