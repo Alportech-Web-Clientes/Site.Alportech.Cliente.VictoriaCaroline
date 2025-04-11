@@ -1,4 +1,24 @@
-﻿<!-- Accomplishments -->
+﻿@model List<Site.Alportech.Cliente.VictoriaCaroline.Models.Conquista>
+@{
+    ViewData["Title"] = "Conquistas";
+}
+
+@functions {
+    public string FormatarTexto(string texto)
+    {
+        if (string.IsNullOrEmpty(texto)) return string.Empty;
+
+        texto = System.Net.WebUtility.HtmlEncode(texto);
+        texto = texto.Replace("\r\n", "<br>").Replace("\n", "<br>");
+        texto = System.Text.RegularExpressions.Regex.Replace(texto, @"\*\*(.*?)\*\*", "<strong>$1</strong>");
+        texto = System.Text.RegularExpressions.Regex.Replace(texto, @"\*(.*?)\*", "<em>$1</em>");
+        texto = System.Text.RegularExpressions.Regex.Replace(texto, @"_(.*?)_", "<em>$1</em>");
+
+        return texto;
+    }
+}
+
+<!-- Accomplishments -->
 <section id="accomplishments" class="content-section">
     <div class="section-header">
         <h1>Conquistas e Feitos</h1>
@@ -6,54 +26,46 @@
     </div>
 
     <div class="accomplishment-timeline full-timeline">
-
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-certificate"></i></div>
-            <div class="timeline-content">
-                <h3>Voluntária no Programa Adapta Keraciaba</h3>
-                <p class="timeline-date">
-                    Concedido(s) por Escola de Artes, Ciências e Humanidades da Universidade de São
-                    Paulo (EACH-USP) · mai de 2023
-                </p>
-                <p>
-                    O Projeto Adapta Keraciaba venceu em 1º lugar na premiação dos melhores trabalhos do 30º Simpósio
-                    Internacional de Iniciação Científica e Tecnológica da USP, com o trabalho "Programa Adapta Keraciaba:
-                    gestão de riscos de desastres e adaptação climática", na área de Ciências Ambientais.
-                </p>
+        @foreach (var conquista in Model)
+        {
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    @if (!string.IsNullOrEmpty(conquista.ImagemConquistaBase64))
+                    {
+                        <img src="data:image/jpeg;base64,@conquista.ImagemConquistaBase64" 
+                             alt="@conquista.TituloConquista" 
+                             class="timeline-icon-image">
+                    }
+                    else
+                    {
+                        <i class="fas fa-certificate"></i>
+                    }
+                </div>
+                <div class="timeline-content">
+                    <h3>@conquista.TituloConquista</h3>
+                    <p class="timeline-date">
+                        Concedido(s) por @conquista.NomeEmpresaConcedente · @conquista.DataConquista
+                    </p>
+                    <p>@conquista.DescricaoConquista</p>
+                </div>
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-award"></i></div>
-            <div class="timeline-content">
-                <h3>Bolsista no Programa Adapta Keraciaba</h3>
-                <p class="timeline-date">
-                    Concedido(s) por Oficina das Nações Unidas para a Redução de Riscos de Desastres
-                    (UNDRR) · out de 2021
-                </p>
-                <p>
-                    O Programa Adapta Keraciaba recebeu um certificado de apreciação e reconhecimento como projeto vencedor
-                    na categoria ‘Jovens’ do concurso de vídeos do MCR 2030 "Vozes da Comunidade - Preparando-se para um
-                    Futuro Resiliente nas Américas e no Caribe"
-                </p>
-            </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-icon"><i class="fas fa-award"></i></div>
-            <div class="timeline-content">
-                <h3>Bolsista do Programa Adapta Keraciaba</h3>
-                <p class="timeline-date">
-                    Concedido(s) por Centro Nacional de Monitoramento e Alerta de Desastres Naturais
-                    (CEMADEN) · fev de 2021
-                </p>
-                <p>
-                    A Campanha Adapta Keraciaba participou da 5ª edição da Campanha Nacional #AprenderParaPrevenir,
-                    promovida pelo Centro Nacional de Monitoramento e Alerta de Desastres Naturais (CEMADEN), e foi
-                    reconhecida com o Prêmio de Mérito na categoria iniciativa universitária inspiradora.
-                </p>
-            </div>
-        </div>
-
+        }
     </div>
 </section>
+
+<style>
+    .timeline-icon-image {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+    .timeline-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+    }
+</style>

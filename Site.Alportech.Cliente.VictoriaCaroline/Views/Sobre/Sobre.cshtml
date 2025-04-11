@@ -1,4 +1,14 @@
-﻿<!-- About -->
+﻿@using Site.Alportech.Cliente.VictoriaCaroline.Models
+@using System.Globalization
+@{
+    ViewData["Title"] = "Sobre";
+    var sobre = ViewBag.Sobre as Sobre;
+    var areasAtuacao = ViewBag.AreasAtuacao as List<AreaAtuacao>;
+    var experiencias = ViewBag.Experiencias as List<Experiencia>;
+    var formacoes = ViewBag.Formacoes as List<Formacao>;
+}
+
+<!-- About -->
 <section id="about" class="content-section">
     <div class="section-header">
         <h1>Sobre</h1>
@@ -7,168 +17,156 @@
 
     <div class="about-content">
 
+        <!-- Áreas de Atuação -->
         <div class="about-expertise">
             <h2>Áreas de Atuação</h2>
             <div class="expertise-grid">
-                <div class="expertise-item">
-                    <i class="fas fa-tree"></i>
-                    <h3>Reflorestamento</h3>
-                    <p>Projetos de recuperação de áreas degradadas e aumento de cobertura vegetal.</p>
-                </div>
-                <div class="expertise-item">
-                    <i class="fas fa-tint"></i>
-                    <h3>Recursos Hídricos</h3>
-                    <p>Preservação de nascentes e gestão sustentável da água.</p>
-                </div>
-                <div class="expertise-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3>Resíduos Sólidos</h3>
-                    <p>Implementação de sistemas de coleta seletiva e economia circular.</p>
-                </div>
-                <div class="expertise-item">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Educação Ambiental</h3>
-                    <p>Programas educativos para escolas e comunidades.</p>
-                </div>
+                @foreach (var area in areasAtuacao!)
+                {
+                    <div class="expertise-item">
+                        @if (!string.IsNullOrEmpty(area.ImagemAreaAtuacaoBase64))
+                        {
+                            <img src="data:image/jpeg;base64,@area.ImagemAreaAtuacaoBase64"
+                                 alt="@area.TituloAreaAtuacao"
+                                 class="expertise-icon">
+                        }
+                        else
+                        {
+                            <i class="fas fa-tree"></i>
+                        }
+                        <h3>@area.TituloAreaAtuacao</h3>
+                        <p>@area.DescricaoAreaAtuacao</p>
+                    </div>
+                }
             </div>
         </div>
 
+        <!-- Quem Sou -->
         <div class="about-bio">
             <h2>Quem Sou</h2>
-            <p>
-                Sou Especialista em Gestão de Projetos e Bacharela em Gestão Ambiental pela Universidade de São Paulo,
-                com sólida experiência em Educação Ambiental, Redução de Riscos de Desastres, Mudanças Climáticas e
-                Engajamento Comunitário. Atualmente, atuo como Educadora Ambiental no Parque da Água Branca (São Paulo -
-                SP), onde lidero o planejamento e a execução de atividades educativas alinhadas aos Objetivos de
-                Desenvolvimento Sustentável (ODS) da ONU.
-            </p>
-            <p>
-                Minha trajetória profissional é marcada pelo compromisso em conectar pessoas ao meio ambiente e promover
-                ações cidadãs para a mitigação de impactos ambientais em nível local e regional. Desenvolvi expertise em
-                gestão de projetos socioambientais, metodologias participativas, planejamento estratégico, análise de
-                dados socioambientais e atuação em equipes interdisciplinares.
-            </p>
-            <p>
-                Estou aberta a novas oportunidades onde possa aplicar minha experiência e contribuir ativamente para
-                iniciativas socioambientais inovadoras.
-            </p>
+            @if (sobre != null && !string.IsNullOrEmpty(sobre.DescricaoSobreMim))
+            {
+                <p>@Html.Raw(sobre.DescricaoSobreMim.Replace("\n", "<br>"))</p>
+            }
         </div>
 
+        <!-- Experiência -->
         <div class="about-bio">
             <h2>Experiência</h2>
-
             <div class="experience-grid">
-                <div class="experience-card">
-                    <div class="experience-image">
-                        <img src="/img/empresas/parque_agua_branca.jpg" alt="Logo Empresa Verde Sustentável">
+                @foreach (var exp in experiencias!)
+                {
+                    <div class="experience-card">
+                        <div class="experience-image">
+                            @if (!string.IsNullOrEmpty(exp.ImagemExperienciaBase64))
+                            {
+                                <img src="data:image/jpeg;base64,@exp.ImagemExperienciaBase64"
+                                     alt="@exp.NomeEmpresa">
+                            }
+                            else
+                            {
+                                <img src="/img/empresas/default.jpg" alt="@exp.NomeEmpresa">
+                            }
+                        </div>
+                        <div class="experience-content">
+                            <h3>@exp.TituloExperiencia</h3>
+                            <p class="experience-company">@exp.NomeEmpresa · @exp.Jornada</p>
+                            <p class="experience-date">
+                                @exp.DataInicioExperiencia -
+                                @(exp.TrabalhoAtual == "S" ? "o momento" : exp.DataFimExperiencia) ·
+                                @CalcularTempoExperiencia(exp.DataInicioExperiencia!, exp.DataFimExperiencia!, exp.TrabalhoAtual!)
+                            </p>
+                            <p class="experience-description">
+                                @Html.Raw(exp.DescricaoExperiencia?.Replace("\n", "<br>"))
+                            </p>
+                        </div>
                     </div>
-                    <div class="experience-content">
-                        <h3>Educadora Ambiental no Parque da Água Branca </h3>
-                        <p class="experience-company">Parque da Água Branca · Tempo integral</p>
-                        <p class="experience-date">abr de 2024 - o momento · 1 ano</p>
-                        <p class="experience-description">
-                            Atuação como Educadora Ambiental em atividades como: - planejamento
-                            e execução do Programa de Educação Ambiental no Parque da Água Branca (São Paulo/SP); - criação de
-                            roteiros ambientais educativos para escolas com diferentes níveis de ensino (infantil, fundamental e
-                            médio); - realização de visitas educativas; - criação e desenvolvimento da programação educativa
-                            ambiental baseada nos 17 Objetivos do Desenvolvimento Sustentável da Organização das Nações Unidas
-                            (ONU) com o oferecimento de oficinas, workshops, caminhadas imersivas e entre outros; - apoio na
-                            formação e orientação das Auxiliares de Educação; - condução de formações e oficinas com a equipe; -
-                            criação e desenvolvimento de materiais educativos; - organização, documentação e sistematização dos
-                            dados e informações obtidos em visitas, atividades, avaliações da equipe e do público; - realização
-                            de articulação e parceria com museus, parques e outras organizações e entre outros.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="experience-card">
-                    <div class="experience-image">
-                        <img src="/img/empresas/aj_services.jpg" alt="Logo Prefeitura Municipal">
-                    </div>
-                    <div class="experience-content">
-                        <h3>Educadora Ambiental - Parque da Água Branca</h3>
-                        <p class="experience-company">AJ Services · Tempo integral</p>
-                        <p class="experience-date">set de 2022 - abr de 2024 · 1 ano 8 meses</p>
-                        <p class="experience-description">
-                            Atuação como Educadora Ambiental em atividades como: - planejamento
-                            e execução do Programa de Educação Ambiental no Parque da Água Branca (São Paulo/SP); - criação de
-                            roteiros ambientais educativos para escolas com diferentes níveis de ensino (infantil, fundamental e
-                            médio); - realização de visitas educativas; - criação e desenvolvimento da programação educativa
-                            ambiental baseada nos 17 Objetivos do Desenvolvimento Sustentável da Organização das Nações Unidas
-                            (ONU) com o oferecimento de oficinas, workshops, caminhadas imersivas e entre outros; - condução de
-                            formações e oficinas com a equipe; - criação e desenvolvimento de materiais educativos; -
-                            organização, documentação e sistematização dos dados e informações obtidos em visitas, atividades,
-                            avaliações da equipe e do público; - realização de articulação e parceria com museus, parques e
-                            outras organizações e entre outros.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="experience-card">
-                    <div class="experience-image">
-                        <img src="/img/empresas/spdm.jpg" alt="Logo ONG Natureza Viva">
-                    </div>
-                    <div class="experience-content">
-                        <h3>Agente de Promoção Ambiental </h3>
-                        <p class="experience-company">SPDM/PAIS - Programa de Atenção Integral à Saúde · Tempo integral</p>
-                        <p class="experience-date">abr de 2022 - ago de 2022 · 5 meses</p>
-                        <p class="experience-description">
-                            Atuação na Unidade Básica de Saúde (UBS)na região da Mooca (São
-                            Paulo/SP) com a execução do Programa Ambientes Verdes e Saudáveis. Desenvolvimento de atividades e
-                            projetos de Educação Ambiental e Educação em Saúde, como: apoio às ações locais do Programa
-                            Ambientes Verdes e Saudáveis (PAVS); Promoção de Educação Sanitária e Ambiental com oficinas e
-                            mutirões; Realização de Visitas Domiciliares e Socioambientais; Prospecção de parcerias no
-                            território; Execução, avaliação e monitoramento dos projetos ativos; Acompanhamento dos(as)
-                            catadores de materiais recicláveis do território; Apoio na sistematização de dados referente às
-                            ações preventivas em saúde e Gestão Ambiental Interna da unidade de saúde.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="experience-card">
-                    <div class="experience-image">
-                        <img src="/img/empresas/cejam.jpg" alt="Logo ONG Natureza Viva">
-                    </div>
-                    <div class="experience-content">
-                        <h3>Agente de Promoção Ambiental (APA)</h3>
-                        <p class="experience-company">
-                            CEJAM - Centro de Estudos e Pesquisas Dr. João Amorim - OFICIAL · Tempo
-                            integral
-                        </p>
-                        <p class="experience-date">mar de 2021 - jun de 2021 · 4 meses</p>
-                        <p class="experience-description">
-                            Atuação na Unidade Básica de Saúde (UBS) Jardim Aracati, no extremo
-                            sul da cidade de São Paulo, desenvolvendo atividades como: apoio às ações locais do Programa
-                            Ambientes Verdes e Saudáveis (PAVS); Promoção de Educação Sanitária e Ambiental com oficinas e
-                            mutirões; Realização de Visitas Domiciliares e Socioambientais; Prospecção de parcerias no
-                            território; Execução, avaliação e monitoramento dos projetos ativos; Acompanhamento dos(as)
-                            catadores de materiais recicláveis do território e Gestão Ambiental Interna da unidade de saúde.
-                        </p>
-                    </div>
-                </div>
-
+                }
             </div>
-
         </div>
 
+        <!-- Formação -->
         <div class="about-education">
             <h2>Formação</h2>
-            <div class="education-item">
-                <h3>Gestão de Projetos , Administração, Negócios e Marketing</h3>
-                <p class="institution">MBA USP/Esalq</p>
-                <p class="year">mai de 2023 - dez de 2024</p>
-            </div>
-            <div class="education-item">
-                <h3>Bacharelado em Gestão Ambiental, Ciências Ambientais</h3>
-                <p class="institution">Universidade de São Paulo</p>
-                <p class="year">2017</p>
-            </div>
-            <div class="education-item">
-                <h3>Bacharelado em Gestão Ambiental</h3>
-                <p class="institution">Universidade de São Paulo</p>
-                <p class="year">fev de 2017 - dez de 2021</p>
-            </div>
+            @foreach (var formacao in formacoes!)
+            {
+                <div class="education-item">
+                    @if (!string.IsNullOrEmpty(formacao.ImagemFormacaoBase64))
+                    {
+                        <div class="education-image">
+                            <img src="data:image/jpeg;base64,@formacao.ImagemFormacaoBase64"
+                                 alt="@formacao.NomeInstituicao">
+                        </div>
+                    }
+                    <div class="education-details">
+                        <h3>@formacao.TituloFormacao</h3>
+                        <p class="institution">@formacao.NomeInstituicao</p>
+                        <p class="year">
+                            @formacao.DataInicioFormacao -
+                            @(string.IsNullOrEmpty(formacao.DataFimFormacao) ? "atualmente" : formacao.DataFimFormacao)
+                        </p>
+                    </div>
+                </div>
+            }
         </div>
 
     </div>
 </section>
+
+@functions {
+    public string CalcularTempoExperiencia(string dataInicio, string dataFim, string trabalhoAtual)
+    {
+        try
+        {
+            var inicio = DateTime.ParseExact(dataInicio, "MM/yyyy", CultureInfo.InvariantCulture);
+            var fim = trabalhoAtual == "S" ? DateTime.Now :
+                     DateTime.ParseExact(dataFim, "MM/yyyy", CultureInfo.InvariantCulture);
+
+            var diff = fim - inicio;
+            var anos = fim.Year - inicio.Year;
+            var meses = fim.Month - inicio.Month;
+
+            if (meses < 0)
+            {
+                anos--;
+                meses += 12;
+            }
+
+            if (anos > 0)
+                return $"{anos} ano{(anos > 1 ? "s" : "")} {meses} mes{(meses > 1 ? "es" : "")}";
+
+            return $"{meses} mes{(meses > 1 ? "es" : "")}";
+        }
+        catch
+        {
+            return "";
+        }
+    }
+}
+
+<style>
+    /* Estilos para as imagens */
+    .expertise-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .education-image img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-right: 15px;
+        border-radius: 50%;
+    }
+
+    .education-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .education-details {
+        flex: 1;
+    }
+</style>
