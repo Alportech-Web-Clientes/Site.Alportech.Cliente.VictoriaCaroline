@@ -24,8 +24,16 @@
                     <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Conquistas" ? "active" : "")" data-target="Conquistas">
                         <i class="fas fa-award"></i> Conquistas
                     </li>
-                    <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Sobre" ? "active" : "")" data-target="Sobre">
-                        <i class="fas fa-user"></i> Sobre
+                    <li class="menu-with-submenu">
+                        <div class="menu-item-container" data-target="Sobre">
+                            <i class="fas fa-user"></i> Sobre <i class="fas fa-chevron-down submenu-icon"></i>
+                        </div>
+                        <ul class="submenu">
+                            <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "QuemSouEu" ? "active" : "")" data-target="QuemSouEu">Quem sou eu</li>
+                            <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Formacoes" ? "active" : "")" data-target="Formacoes">Formações Acadêmicas</li>
+                            <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Experiencias" ? "active" : "")" data-target="Experiencias">Experiências Profissionais</li>
+                            <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "AreasDeAtuacao" ? "active" : "")" data-target="AreasDeAtuacao">Áreas de Atuação</li>
+                        </ul>
                     </li>
                     <li class="@(ViewContext.RouteData.Values["Controller"]!.ToString() == "Contato" ? "active" : "")" data-target="Contato">
                         <i class="fas fa-envelope"></i> Contato
@@ -60,6 +68,59 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Manipulação dos itens de menu principais
+            const menuItems = document.querySelectorAll('.menu li[data-target]');
+            menuItems.forEach(function (item) {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function () {
+                    const controller = item.getAttribute('data-target');
+                    if (controller) {
+                        window.location.href = '/' + controller + '/Index';
+                    }
+                });
+            });
+
+            // Manipulação do menu com submenu
+            const menuWithSubmenu = document.querySelector('.menu-with-submenu');
+            const menuItemContainer = document.querySelector('.menu-item-container');
+            const submenu = document.querySelector('.submenu');
+            const submenuItems = document.querySelectorAll('.submenu li');
+
+            // Verifica se algum item do submenu está ativo ao carregar a página
+            const submenuHasActive = Array.from(submenuItems).some(item => item.classList.contains('active'));
+            if (submenuHasActive) {
+                menuWithSubmenu.classList.add('active');
+                submenu.classList.add('active');
+            }
+
+            // Toggle do submenu
+            menuItemContainer.addEventListener('click', function (e) {
+                e.stopPropagation();
+                menuWithSubmenu.classList.toggle('active');
+                submenu.classList.toggle('active');
+            });
+
+            // Manipulação dos itens do submenu
+            submenuItems.forEach(function (item) {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const target = item.getAttribute('data-target');
+                    if (target) {
+                        window.location.href = '/' + target;
+                    }
+                });
+            });
+
+            // Fechar o submenu ao clicar em qualquer lugar fora dele
+            document.addEventListener('click', function () {
+                menuWithSubmenu.classList.remove('active');
+                submenu.classList.remove('active');
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

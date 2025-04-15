@@ -1,0 +1,111 @@
+﻿@using Site.Alportech.Cliente.VictoriaCaroline.Models
+@using System.Globalization
+@{
+    ViewData["Title"] = "Experiências Profissionais";
+    var experiencias = ViewBag.Experiencias as List<Experiencia>;
+}
+
+<!-- About -->
+<section id="about" class="content-section">
+    <div class="section-header">
+        <h1>Experiências Profissionais</h1>
+        <p class="subtitle">Trajetória profissional e formação</p>
+    </div>
+
+    <div class="about-content">
+
+        <!-- Experiência -->
+        <div class="about-bio">
+            <h2>Experiência</h2>
+            <div class="experience-grid">
+                @foreach (var exp in experiencias!)
+                {
+                    <div class="experience-card">
+                        <div class="experience-image">
+                            @if (!string.IsNullOrEmpty(exp.ImagemExperienciaBase64))
+                            {
+                                <img src="data:image/jpeg;base64,@exp.ImagemExperienciaBase64"
+                                     alt="@exp.NomeEmpresa">
+                            }
+                            else
+                            {
+                                <img src="/img/empresas/default.jpg" alt="@exp.NomeEmpresa">
+                            }
+                        </div>
+                        <div class="experience-content">
+                            <h3>@exp.TituloExperiencia</h3>
+                            <p class="experience-company">@exp.NomeEmpresa · @exp.Jornada</p>
+                            <p class="experience-date">
+                                @exp.DataInicioExperiencia -
+                                @(exp.TrabalhoAtual == "S" ? "o momento" : exp.DataFimExperiencia) ·
+                                @CalcularTempoExperiencia(exp.DataInicioExperiencia!, exp.DataFimExperiencia!, exp.TrabalhoAtual!)
+                            </p>
+                            <p class="experience-description">
+                                @Html.Raw(exp.DescricaoExperiencia?.Replace("\n", "<br>"))
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@functions {
+    public string CalcularTempoExperiencia(string dataInicio, string dataFim, string trabalhoAtual)
+    {
+        try
+        {
+            var inicio = DateTime.ParseExact(dataInicio, "MM/yyyy", CultureInfo.InvariantCulture);
+            var fim = trabalhoAtual == "S" ? DateTime.Now :
+                     DateTime.ParseExact(dataFim, "MM/yyyy", CultureInfo.InvariantCulture);
+
+            var diff = fim - inicio;
+            var anos = fim.Year - inicio.Year;
+            var meses = fim.Month - inicio.Month;
+
+            if (meses < 0)
+            {
+                anos--;
+                meses += 12;
+            }
+
+            if (anos > 0)
+                return $"{anos} ano{(anos > 1 ? "s" : "")} {meses} mes{(meses > 1 ? "es" : "")}";
+
+            return $"{meses} mes{(meses > 1 ? "es" : "")}";
+        }
+        catch
+        {
+            return "";
+        }
+    }
+}
+
+<style>
+    /* Estilos para as imagens */
+    .expertise-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .education-image img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-right: 15px;
+        border-radius: 50%;
+    }
+
+    .education-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .education-details {
+        flex: 1;
+    }
+</style>

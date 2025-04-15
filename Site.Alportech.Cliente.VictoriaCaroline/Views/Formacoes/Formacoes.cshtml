@@ -1,0 +1,42 @@
+﻿@using Site.Alportech.Cliente.VictoriaCaroline.Models
+@using System.Globalization
+@{
+    ViewData["Title"] = "Formações Acadêmicas";
+    var formacoes = ViewBag.Formacoes as List<Formacao>;
+}
+
+<!-- About -->
+<section id="about" class="content-section">
+    <div class="section-header">
+        <h1>Formações Acadêmicas</h1>
+        <p class="subtitle">Trajetória profissional e formação</p>
+    </div>
+
+    <div class="about-content">
+        <!-- Formação -->
+        <div class="about-education">
+            <h2>Formação</h2>
+            @foreach (var formacao in formacoes!)
+            {
+                <div class="education-item">
+                    @if (!string.IsNullOrEmpty(formacao.ImagemFormacaoBase64))
+                    {
+                        <div class="education-image">
+                            <img src="data:image/jpeg;base64,@formacao.ImagemFormacaoBase64"
+                                 alt="@formacao.NomeInstituicao">
+                        </div>
+                    }
+                    <div class="education-details">
+                        <h3>@formacao.TituloFormacao</h3>
+                        <p class="institution">@formacao.NomeInstituicao</p>
+                        <p class="year">
+                            @formacao.DataInicioFormacao -
+                            @(string.IsNullOrEmpty(formacao.DataFimFormacao) ? "atualmente" : formacao.DataFimFormacao)
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
